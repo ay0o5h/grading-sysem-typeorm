@@ -12,13 +12,13 @@ export class User extends BaseEntity {
     @Column()
     lastName: string;
 
-    @Column()
-    phone: number;
+    @Column({ unique: true })
+    phone: string;
     @Column()
     password: string;
-    @Column()
+    @Column({ nullable: true })
     otp: number;
-    @Column()
+    @Column({ nullable: true })
     otpNewPassword: number;
     @Column({default:false})
     isVerfied:boolean

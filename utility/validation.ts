@@ -41,7 +41,7 @@ export default class Validate {
     static verifyPassword = (must = true) => ({
       passwordOtp: {
         presence: must,
-        type: "string",
+        type: "number",
       },
       newPassword: {
         presence: must,

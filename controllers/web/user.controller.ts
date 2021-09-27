@@ -43,7 +43,7 @@ export default class UserController {
     user = await User.findOne({ where: { phone } });
     // if exists but not verified
     if (user) {
-      if (!user.isVerified) {
+      if (!user.isVerfied) {
         Object.keys(body).forEach((key) => {
           user[key] = body[key];
         });
@@ -90,7 +90,7 @@ export default class UserController {
       return errRes(res, "otp is incorrect");
     }
     // if yes -> isVerified = true
-    user.isVerified = true;
+    user.isVerfied = true;
     await user.save();
     // return res
     return okRes(res, { user });
@@ -117,7 +117,7 @@ export default class UserController {
     let phone = phoneObj.globalP;
     let password = body.password;
     // get user from db by phone + isVerified
-    let user = await User.findOne({ where: { phone, isVerified: true } });
+    let user = await User.findOne({ where: { phone, isVerfied: true } });
     if (!user) return errRes(res, `Please complete the registration process`);
 
     // compaire the password
@@ -164,7 +164,7 @@ export default class UserController {
 
     // get user from db using phone + isVerified
     let user = await User.findOne({
-      where: { phone, isVerified: true, active: true },
+      where: { phone, isVerfied: true, isActive: false },
     });
     if (!user) return errRes(res, `Please complete the registration process`);
 
@@ -211,7 +211,7 @@ export default class UserController {
     if (!user) return errRes(res, "User not found");
 
     // compaire the passwordOtp from db & body
-    if (body.otpNewPassword != user.otpNewPassword)
+    if (body.passwordOtp != user.otpNewPassword)
       return errRes(res, "invalid one time password");
 
     // hash new password

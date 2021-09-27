@@ -1,10 +1,17 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import { User } from "./entity/User";
+import * as express from "express";
+const app = express();
+import webv1 from "../routes/web/v1";
+import notFound from "../middlewares/web/notFound";
 
-createConnection().then(async connection => {
+const port = process.env.PORT || 3000;
 
-    console.log("ok~");
-    
-
-}).catch(error => console.log(error));
+createConnection()
+  .then(async (connection) => {
+    app.use(express.json());
+    app.use("/v1", webv1);
+    app.use(notFound);
+    app.listen(port, () => console.log(`Running on ${port}`));
+  })
+  .catch((error) => console.log(error));
