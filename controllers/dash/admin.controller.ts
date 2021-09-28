@@ -6,8 +6,8 @@ import { errRes, getOtp, okRes } from "../../utility/util.service";
 import PhoneFormat from "../../utility/phoneFormat.service";
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
-import CONFIG from '../../config';
-
+import CONFIG from "../../config";
+import { Twilio } from "twilio";
 export default class AdminController {
   /**
    *
@@ -51,7 +51,7 @@ export default class AdminController {
     } else {
       admin = await Admin.create({
         firstName: body.firstName,
-        lastName:body.lastName,
+        lastName: body.lastName,
         phone: body.phone,
         password: body.password,
         otp: body.otp,
@@ -62,7 +62,16 @@ export default class AdminController {
     await admin.save();
 
     // send sms
-
+    const accountSid = "AC1ec944609532d00468cecce1145b5575";
+    const authToken = "cb6f14425becfcea726e09609b765829";
+    const client =  new Twilio(accountSid, authToken);
+    client.messages 
+      .create({         
+        body: `your vervication code is ${otp}`,     
+        to: '+9647805847657',
+        from: "+18066066506"
+       }) 
+      .then(message => console.log(message.sid)) 
     let token = jwt.sign({ id: admin.id }, CONFIG.jwtUserSecret);
 
     // return res
@@ -82,6 +91,7 @@ export default class AdminController {
     if (!otp) return errRes(res, `Otp is required`);
     // check if they are the same DB
     let admin = req.admin;
+    
 
     // if not -> delete the otp from DB + ask user to try again
     if (admin.otp != otp) {
@@ -89,6 +99,8 @@ export default class AdminController {
       await admin.save();
       return errRes(res, "otp is incorrect");
     }
+    
+  
     // if yes -> isVerified = true
     admin.isVerfied = true;
     await admin.save();
