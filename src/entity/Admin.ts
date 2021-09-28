@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity } from "typeorm";
 
 @Entity()
-export class Admin {
+export class Admin extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -12,16 +12,23 @@ export class Admin {
     @Column()
     lastName: string;
 
-    @Column()
-    phone: number;
+    @Column({ unique: true })
+    phone: string;
     @Column()
     password: string;
-    @Column({ default: false })
-    isActive: boolean
+    @Column({ nullable: true })
+    otp: number;
+    @Column({ nullable: true })
+    otpNewPassword: number;
+    @Column({default:false})
+    isVerfied:boolean
+    @Column({default:true})
+    isActive:boolean
     @CreateDateColumn()
     createdAt: Date;
-
+  
     @UpdateDateColumn()
     updatedAt: Date;
+  //TODO: make Relations 
 
 }
