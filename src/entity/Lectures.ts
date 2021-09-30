@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column,CreateDateColumn, UpdateDateColumn, BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column,CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne} from "typeorm";
+import { Course } from "./Course";
 
 @Entity()
 export class Lectures extends BaseEntity{
@@ -17,4 +18,6 @@ export class Lectures extends BaseEntity{
     @UpdateDateColumn()
     updatedAt: Date;
   //TODO: make Relations
+  @ManyToOne((type) => Course, (course) => course.lectures)
+  course: Course;
 }

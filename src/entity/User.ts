@@ -5,7 +5,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
+  OneToMany,
+  JoinTable,
+  ManyToMany,
 } from "typeorm";
+import { Course } from "./Course";
+import { StudentAnswer } from "./StudentAnswer";
+import { TestResult } from "./TestResult";
 
 @Entity()
 export class User extends BaseEntity {
@@ -30,4 +36,13 @@ export class User extends BaseEntity {
   @UpdateDateColumn()
   updatedAt: Date;
   //TODO: make Relations
+  @OneToMany((type) => TestResult, (testResult) => testResult.user)
+  testResults: TestResult[];
+  @OneToMany((type) => StudentAnswer, (studentAnswer) => studentAnswer.user)
+  studentAnswers: StudentAnswer[];
+
+  @ManyToMany(() => Course, course => course.users)
+  @JoinTable()
+  courses: Course[];
+
 }

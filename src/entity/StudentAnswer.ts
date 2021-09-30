@@ -1,4 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne, JoinColumn, OneToOne } from "typeorm";
+import { Test } from "./Test";
+import { TestQuestion } from "./TestQuestion";
+import { User } from "./User";
 
 @Entity()
 export class StudentAnswer extends BaseEntity{
@@ -15,4 +18,13 @@ export class StudentAnswer extends BaseEntity{
     @UpdateDateColumn()
     updatedAt: Date;
   //TODO: make Relations
+  @ManyToOne((type) => User, (user) => user.studentAnswers)
+      user: User;
+      @ManyToOne((type) => Test, (test) => test.studentAnswers)
+      test: Test;
+      // @ManyToOne((type) => TestQuestion, (testQuestion) => testQuestion.studentAnswers)
+      // testQuestion: TestQuestion;
+      @OneToOne(() => TestQuestion)
+      @JoinColumn()
+      testQuestion: TestQuestion;
 }

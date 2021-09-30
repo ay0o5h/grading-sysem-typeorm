@@ -1,4 +1,10 @@
-import {Entity, PrimaryGeneratedColumn, Column,CreateDateColumn, UpdateDateColumn, BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column,CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne, OneToMany} from "typeorm";
+import { Admin } from "./Admin";
+import { Course } from "./Course";
+import { StudentAnswer } from "./StudentAnswer";
+import { TestQuestion } from "./TestQuestion";
+import { TestResult } from "./TestResult";
+import { User } from "./User";
 
 @Entity()
 export class Test extends BaseEntity{
@@ -23,5 +29,15 @@ export class Test extends BaseEntity{
     @UpdateDateColumn()
     updatedAt: Date;
       //TODO: make Relations
+      @ManyToOne((type) => Course, (course) => course.tests)
+  course: Course;
+  @ManyToOne((type) => Admin, (admin) => admin.tests)
+  admin: Admin;
+  @OneToMany((type) => TestQuestion, (testQuestion) => testQuestion.test)
+  testQuestions: TestQuestion[];
+  @OneToMany((type) => TestResult, (testResult) => testResult.test)
+  testResults: TestResult[];
+  @OneToMany((type) => StudentAnswer, (studentAnswer) => studentAnswer.test)
+  studentAnswers: StudentAnswer[];
 
 }

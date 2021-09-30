@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column,CreateDateColumn, UpdateDateColumn, BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column,CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne} from "typeorm";
+import { Test } from "./Test";
 
 @Entity()
 export class TestQuestion extends BaseEntity{
@@ -28,4 +29,7 @@ export class TestQuestion extends BaseEntity{
     @UpdateDateColumn()
     updatedAt: Date;
     //TODO: make Relations
+    @ManyToOne((type) => Test, (test) => test.testQuestions)
+    test: Test;
+    
 }
