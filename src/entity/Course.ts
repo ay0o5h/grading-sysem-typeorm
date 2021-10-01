@@ -13,6 +13,8 @@ export class Course extends BaseEntity {
 
     @Column()
     name: string;
+    @Column({default: true})
+    active: boolean;
 
     @CreateDateColumn()
     createdAt: Date;

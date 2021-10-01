@@ -19,7 +19,7 @@ export default async (req, res, next) => {
 
     // check user isVerified
     if (!admin.isVerfied) return errRes(res, `Please verify your account`);
-    req.user = admin;
+    req.admin = admin;
     // next
     return next();
   } catch (error) {

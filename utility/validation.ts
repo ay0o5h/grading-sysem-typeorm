@@ -78,4 +78,14 @@ export default class Validate {
       type: "string",
     },
   });
+  static course= (must = true) => ({
+    name: {
+    presence: must,
+    type: "string",
+  },
+  admin: {
+    presence: must,
+    type: "number",
+  },
+});
   }
