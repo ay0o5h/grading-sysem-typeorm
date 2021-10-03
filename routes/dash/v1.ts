@@ -2,6 +2,7 @@ import * as express from "express";
 import AdminController from '../../controllers/dash/admin.controller';
 import StudentController from '../../controllers/dash/student.controller';
 import CourseController from '../../controllers/dash/course.controller';
+import TestController from '../../controllers/dash/test.controller';
 import otp from "../../middlewares/dash/otp";
 import auth from "../../middlewares/dash/auth";
 
@@ -23,5 +24,10 @@ route.post("/add/student", StudentController.addStudent);
 route.post("/add/course", CourseController.add);
 route.put("/edit/course/:id", CourseController.edit);
 route.delete("/delete/course/:id", CourseController.delete);
+route.post("/add/test", TestController.add);
+route.put("/edit/test/:id", TestController.edit);
+route.delete("/delete/test/:id", TestController.delete);
+route.post("/lecture/uploade", CourseController.uploade);
+
 
 export default route;

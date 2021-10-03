@@ -4,25 +4,25 @@ import { TestQuestion } from "./TestQuestion";
 import { User } from "./User";
 
 @Entity()
-export class StudentAnswer extends BaseEntity{
+export class StudentAnswer extends BaseEntity {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    answer: string;
+  @Column()
+  answer: string;
 
-    @CreateDateColumn()
-    createdAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @UpdateDateColumn()
-    updatedAt: Date;
+  @UpdateDateColumn()
+  updatedAt: Date;
   //TODO: make Relations
   @ManyToOne((type) => User, (user) => user.studentAnswers)
-      user: User;
-      @ManyToOne((type) => Test, (test) => test.studentAnswers)
-      test: Test;
-      @OneToOne(() => TestQuestion)
-      @JoinColumn()
-      testQuestion: TestQuestion;
+  user: User;
+  @ManyToOne((type) => Test, (test) => test.studentAnswers)
+  test: Test;
+  @OneToOne(() => TestQuestion)
+  @JoinColumn()
+  testQuestion: TestQuestion;
 }

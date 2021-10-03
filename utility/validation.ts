@@ -1,55 +1,55 @@
 export default class Validate {
-    constructor(parameters) {}
-  
-    static register = (must = true) => ({
-        firstName: {
-        presence: must,
-        type: "string",
-      },
-      lastName: {
-        presence: must,
-        type: "string",
-      },
-      phone: {
-        presence: must,
-        type: "string",
-      },
-      password: {
-        presence: must,
-        type: "string",
-      },
-    });
-  
-    static login = (must = true) => ({
-      phone: {
-        presence: must,
-        type: "string",
-      },
-      password: {
-        presence: must,
-        type: "string",
-      },
-    });
-  
-    static forget = (must = true) => ({
-      phone: {
-        presence: must,
-        type: "string",
-      },
-    });
-  
-    static verifyPassword = (must = true) => ({
-      passwordOtp: {
-        presence: must,
-        type: "number",
-      },
-      newPassword: {
-        presence: must,
-        type: "string",
-      },
-    });
-    static addStudent= (must = true) => ({
-      firstName: {
+  constructor(parameters) { }
+
+  static register = (must = true) => ({
+    firstName: {
+      presence: must,
+      type: "string",
+    },
+    lastName: {
+      presence: must,
+      type: "string",
+    },
+    phone: {
+      presence: must,
+      type: "string",
+    },
+    password: {
+      presence: must,
+      type: "string",
+    },
+  });
+
+  static login = (must = true) => ({
+    phone: {
+      presence: must,
+      type: "string",
+    },
+    password: {
+      presence: must,
+      type: "string",
+    },
+  });
+
+  static forget = (must = true) => ({
+    phone: {
+      presence: must,
+      type: "string",
+    },
+  });
+
+  static verifyPassword = (must = true) => ({
+    passwordOtp: {
+      presence: must,
+      type: "number",
+    },
+    newPassword: {
+      presence: must,
+      type: "string",
+    },
+  });
+  static addStudent = (must = true) => ({
+    firstName: {
       presence: must,
       type: "string",
     },
@@ -78,14 +78,44 @@ export default class Validate {
       type: "string",
     },
   });
-  static course= (must = true) => ({
+  static course = (must = true) => ({
     name: {
-    presence: must,
-    type: "string",
-  },
-  admin: {
-    presence: must,
-    type: "number",
-  },
-});
-  }
+      presence: must,
+      type: "string",
+    },
+    admin: {
+      presence: must,
+      type: "number",
+    },
+  });
+  static test = (must = true) => ({
+    name: {
+      presence: must,
+      type: "string",
+    },
+    num_of_question: {
+      presence: must,
+      type: "number",
+    },
+    total_marks: {
+      presence: must,
+      type: "number",
+    },
+    mark_of_each_question: {
+      presence: must,
+      type: "number",
+    },
+    date: {
+      presence: must,
+      type: "string",
+    },
+    admin: {
+      presence: must,
+      type: "number",
+    },
+    course: {
+      presence: must,
+      type: "number",
+    },
+  });
+}
