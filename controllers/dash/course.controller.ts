@@ -15,6 +15,10 @@ export default class CourseController {
    * @param res
    * @returns
    */
+  static async getAll(req: Request, res: Response): Promise<object> {
+    const courses = await Course.find({ where: { active: true } });
+    return okRes(res, { courses })
+  }
   static async add(req: Request, res: Response): Promise<object> {
     // get the body
     const body = req.body;
@@ -68,23 +72,7 @@ export default class CourseController {
    */
   static async delete(req: Request, res: Response): Promise<object> {
     const id = req.params.id;
-    let data, test, testId, testQuestion;
-    // test = await Test.find({ where: { course: id } });
-    // testId = test.id;
-    // console.log(testId)
-    // testQuestion = await TestQuestion.find({ where: { test: testId } });
-    // for (let i = 0; i < testQuestion.length; i++) {
-    //   await testQuestion[i].remove();
-    // }
-    // if (testQuestion.length == 0) {
-    //   for (let i = 0; i < test.length; i++) {
-    //     await test[i].remove();
-    //   }
-    // }
-
-    // data = await Course.delete(id);
-    // return okRes(res, 'course has been deleted');
-
+    let data, test;
     try {
       data = await Course.findOne(id);
       test = await Test.find({ where: { course: id } });

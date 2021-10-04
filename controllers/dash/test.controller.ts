@@ -9,6 +9,11 @@ import CONFIG from "../../config";
 import { Test } from "../../src/entity/Test";
 import { TestQuestion } from "../../src/entity/TestQuestion";
 export default class TestController {
+    static async getAll(req: Request, res: Response): Promise<object> {
+        const id = req.params.id;
+        const test = await Test.find({ where: { active: true, course: id } });
+        return okRes(res, { test })
+    }
     /**
      *
      * @param req
