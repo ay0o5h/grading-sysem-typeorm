@@ -21,6 +21,8 @@ export class Test extends BaseEntity {
   @Column()
   mark_of_each_question: number;
   @Column()
+  minutsOfExam: number;
+  @Column()
   date: Date;
   @Column({ default: true })
   active: boolean;

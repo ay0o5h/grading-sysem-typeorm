@@ -105,6 +105,10 @@ export default class Validate {
       presence: must,
       type: "number",
     },
+    minutsOfExam: {
+      presence: must,
+      type: "number",
+    },
     date: {
       presence: must,
       type: "string",
@@ -114,6 +118,40 @@ export default class Validate {
       type: "number",
     },
     course: {
+      presence: must,
+      type: "number",
+    },
+  });
+  static testQuestion = (must = true) => ({
+    qsn: {
+      presence: must,
+      type: "string",
+    },
+    optionA: {
+      presence: must,
+      type: "string",
+    },
+    optionB: {
+      presence: must,
+      type: "string",
+    },
+    optionC: {
+      presence: must,
+      type: "string",
+    },
+    optionD: {
+      presence: must,
+      type: "string",
+    },
+    right_answer: {
+      presence: must,
+      type: "string",
+    },
+    qsn_no: {
+      presence: must,
+      type: "number",
+    },
+    test: {
       presence: must,
       type: "number",
     },

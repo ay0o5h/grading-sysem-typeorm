@@ -8,11 +8,10 @@ import auth from "../../middlewares/dash/auth";
 
 const route = express.Router();
 
-/// Not Auth
+/// Not Auth && register
 route.post("/register", AdminController.register);
 route.post("/otp", otp, AdminController.checkOtp);
 route.post("/login", AdminController.login);
-
 route.post("/forget/password", AdminController.forget);
 route.post("/verify/password", AdminController.verifyPassword);
 
@@ -20,14 +19,20 @@ route.post("/verify/password", AdminController.verifyPassword);
 route.use(auth);
 
 route.get("/check", AdminController.check);
+// students
 route.post("/add/student", StudentController.addStudent);
+// courses
 route.post("/add/course", CourseController.add);
 route.put("/edit/course/:id", CourseController.edit);
 route.delete("/delete/course/:id", CourseController.delete);
+// tests
 route.post("/add/test", TestController.add);
 route.put("/edit/test/:id", TestController.edit);
 route.delete("/delete/test/:id", TestController.delete);
-route.post("/lecture/uploade", CourseController.uploade);
+// questions
+route.post("/add/questions", TestController.addQuestion);
+route.put("/edit/questions/:id", TestController.editQuestion);
+// route.post("/lecture/uploade", CourseController.uploade);
 
 
 export default route;

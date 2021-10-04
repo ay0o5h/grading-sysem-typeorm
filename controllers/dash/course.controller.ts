@@ -6,6 +6,8 @@ import { Course } from "../../src/entity/Course";
 import * as imgbbUploader from "imgbb-uploader";
 import * as fs from "fs";
 import CONFIG from "../../config";
+import { TestQuestion } from "../../src/entity/TestQuestion";
+import { Test } from "../../src/entity/Test";
 export default class CourseController {
   /**
    *
@@ -66,35 +68,55 @@ export default class CourseController {
    */
   static async delete(req: Request, res: Response): Promise<object> {
     const id = req.params.id;
-    let data;
+    let data, test, testId, testQuestion;
+    // test = await Test.find({ where: { course: id } });
+    // testId = test.id;
+    // console.log(testId)
+    // testQuestion = await TestQuestion.find({ where: { test: testId } });
+    // for (let i = 0; i < testQuestion.length; i++) {
+    //   await testQuestion[i].remove();
+    // }
+    // if (testQuestion.length == 0) {
+    //   for (let i = 0; i < test.length; i++) {
+    //     await test[i].remove();
+    //   }
+    // }
+
+    // data = await Course.delete(id);
+    // return okRes(res, 'course has been deleted');
 
     try {
       data = await Course.findOne(id);
+      test = await Test.find({ where: { course: id } });
       if (!data) return errRes(res, "Not Found");
       data.active = !data.active;
       await data.save();
+      for (let i = 0; i < test.length; i++) {
+        test[i].active = !test[i].active;
+        await test[i].save();
+      }
     } catch (error) {
       let errMsg = error.detail ? error.detail : error;
       return errRes(res, errMsg);
     }
     return okRes(res, { data });
   }
-  static async uploade(req: any, res: Response): Promise<object> {
-    console.log(req.file)
-    if (!req.file) return errRes(res, `Image is missing`);
+  //   static async uploade(req: any, res: Response): Promise<object> {
+  //     console.log(req.file)
+  //     if (!req.file) return errRes(res, `Image is missing`);
 
-    let image = req.files.image;
-    let fileName = "image";
-    let path = `./public/${fileName}.png`;
-    image.mv(path, function (err) {
-      if (err) return errRes(res, err);
-      imgbbUploader(CONFIG.imageBB, path)
-        .then((r) => {
-          fs.unlink(path, (error) => errRes(res, error));
-          return okRes(res, r);
-        })
-        .catch((error) => console.error(1));
-    });
+  //     let image = req.files.image;
+  //     let fileName = "image";
+  //     let path = `./public/${fileName}.png`;
+  //     image.mv(path, function (err) {
+  //       if (err) return errRes(res, err);
+  //       imgbbUploader(CONFIG.imageBB, path)
+  //         .then((r) => {
+  //           fs.unlink(path, (error) => errRes(res, error));
+  //           return okRes(res, r);
+  //         })
+  //         .catch((error) => console.error(1));
+  //     });
 
-  }
+  //   }
 }

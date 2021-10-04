@@ -1,8 +1,8 @@
-import {Entity, PrimaryGeneratedColumn, Column,CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToOne } from "typeorm";
 import { Test } from "./Test";
 
 @Entity()
-export class TestQuestion extends BaseEntity{
+export class TestQuestion extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -21,15 +21,15 @@ export class TestQuestion extends BaseEntity{
     right_answer: string;
     @Column()
     qsn_no: number;
-    
+
 
     @CreateDateColumn()
     createdAt: Date;
-  
+
     @UpdateDateColumn()
     updatedAt: Date;
     //TODO: make Relations
     @ManyToOne((type) => Test, (test) => test.testQuestions)
     test: Test;
-    
+
 }

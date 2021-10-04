@@ -7,6 +7,7 @@ import * as imgbbUploader from "imgbb-uploader";
 import * as fs from "fs";
 import CONFIG from "../../config";
 import { Test } from "../../src/entity/Test";
+import { TestQuestion } from "../../src/entity/TestQuestion";
 export default class TestController {
     /**
      *
@@ -67,10 +68,60 @@ export default class TestController {
      */
     static async delete(req: Request, res: Response): Promise<object> {
         const id = req.params.id;
-        let test;
+        let tests, testQsns;
+        testQsns = await TestQuestion.find({ where: { test: id } });
+        for (let i = 0; i < testQsns.length; i++) {
+            await testQsns[i].remove();
+        }
 
-        test = await Test.delete(id);
+
+        tests = await Test.delete(id);
 
         return okRes(res, 'test has been deleted');
     }
+    static async addQuestion(req: Request, res: Response): Promise<object> {
+        // get the body
+        const body = req.body;
+        // validate the req
+        let notValid = validate(body, Validator.testQuestion());
+        if (notValid) return errRes(res, notValid);
+        let qsn = body.qsn;
+        let test;
+        test = await TestQuestion.findOne({ where: { qsn } });
+
+        if (test) return errRes(res, ` ${qsn} is already exist`);
+
+        test = await TestQuestion.create({
+            ...body
+        });
+
+        await test.save();
+        // return res
+        return okRes(res, { test });
+    }
+    static async editQuestion(req: Request, res: Response): Promise<object> {
+        const body = req.body;
+        // validate the req
+        let notValid = validate(body, Validator.testQuestion(false));
+        if (notValid) return errRes(res, notValid);
+
+        const id = req.params.id;
+        let data;
+
+        try {
+            data = await TestQuestion.findOne(id);
+            if (!data) return errRes(res, "Not found");
+
+            Object.keys(data).forEach((key) => {
+                if (body[key]) data[key] = body[key];
+            });
+
+            await data.save();
+        } catch (error) {
+            let errMsg = error.detail ? error.detail : error;
+            return errRes(res, errMsg);
+        }
+        return okRes(res, { data });
+    }
+
 }
