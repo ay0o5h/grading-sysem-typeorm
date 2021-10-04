@@ -2,10 +2,6 @@ import { Request, Response } from "express";
 import * as validate from "validate.js";
 import Validator from "../../utility/validation";
 import { errRes, okRes } from "../../utility/util.service";
-import { Course } from "../../src/entity/Course";
-import * as imgbbUploader from "imgbb-uploader";
-import * as fs from "fs";
-import CONFIG from "../../config";
 import { Test } from "../../src/entity/Test";
 import { TestQuestion } from "../../src/entity/TestQuestion";
 export default class TestController {
@@ -16,9 +12,6 @@ export default class TestController {
     }
     static async getOne(req: Request, res: Response): Promise<object> {
         const id = req.params.id;
-        // let data = await Test.findOne({
-        //     where: { id }
-        // })
         let data = await Test.findOne({
             where: { id },
             join: {
