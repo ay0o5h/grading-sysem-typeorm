@@ -14,6 +14,22 @@ export default class TestController {
         const test = await Test.find({ where: { active: true, course: id } });
         return okRes(res, { test })
     }
+    static async getOne(req: Request, res: Response): Promise<object> {
+        const id = req.params.id;
+        // let data = await Test.findOne({
+        //     where: { id }
+        // })
+        let data = await Test.findOne({
+            where: { id },
+            join: {
+                alias: "test",
+                leftJoinAndSelect: {
+                    testQuestions: "test.testQuestions",
+                },
+            },
+        });
+        return okRes(res, { data });
+    }
     /**
      *
      * @param req

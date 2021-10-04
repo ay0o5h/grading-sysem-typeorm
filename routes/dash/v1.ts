@@ -23,10 +23,12 @@ route.get("/check", AdminController.check);
 route.post("/add/student", StudentController.addStudent);
 // courses
 route.get("/course", CourseController.getAll);
+route.get("/course/:id", CourseController.getOne);
 route.post("/add/course", CourseController.add);
 route.put("/edit/course/:id", CourseController.edit);
 route.delete("/delete/course/:id", CourseController.delete);
 // tests
+route.get("/test/:id", TestController.getOne);
 route.get("/:id/test", TestController.getAll);
 route.post("/add/test", TestController.add);
 route.put("/edit/test/:id", TestController.edit);

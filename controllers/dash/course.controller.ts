@@ -19,6 +19,19 @@ export default class CourseController {
     const courses = await Course.find({ where: { active: true } });
     return okRes(res, { courses })
   }
+  static async getOne(req: Request, res: Response): Promise<object> {
+    const id = req.params.id;
+    let data = await Course.findOne({
+      where: { id, active: true },
+      join: {
+        alias: "course",
+        leftJoinAndSelect: {
+          tests: "course.tests",
+        },
+      },
+    });
+    return okRes(res, { data });
+  }
   static async add(req: Request, res: Response): Promise<object> {
     // get the body
     const body = req.body;
