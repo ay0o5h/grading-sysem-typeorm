@@ -64,14 +64,14 @@ export default class AdminController {
     // send sms
     const accountSid = "AC1ec944609532d00468cecce1145b5575";
     const authToken = "cb6f14425becfcea726e09609b765829";
-    const client =  new Twilio(accountSid, authToken);
-    client.messages 
-      .create({         
-        body: `your vervication code is ${otp}`,     
+    const client = new Twilio(accountSid, authToken);
+    client.messages
+      .create({
+        body: `your vervication code is ${otp}`,
         to: '+9647805847657',
         from: "+18066066506"
-       }) 
-      .then(message => console.log(message.sid)) 
+      })
+      .then(message => console.log(message.sid))
     let token = jwt.sign({ id: admin.id }, CONFIG.jwtUserSecret);
 
     // return res
@@ -91,7 +91,7 @@ export default class AdminController {
     if (!otp) return errRes(res, `Otp is required`);
     // check if they are the same DB
     let admin = req.admin;
-    
+
 
     // if not -> delete the otp from DB + ask user to try again
     if (admin.otp != otp) {
@@ -99,8 +99,8 @@ export default class AdminController {
       await admin.save();
       return errRes(res, "otp is incorrect");
     }
-    
-  
+
+
     // if yes -> isVerified = true
     admin.isVerfied = true;
     await admin.save();
@@ -237,5 +237,22 @@ export default class AdminController {
     // let token = jwt.sign({ id: user.id }, CONFIG.jwtUserSecret);
 
     return okRes(res, { msg: "All good" });
+  }
+  static async deactive(req, res): Promise<object> {
+    const token = req.headers.token;
+    if (!token) return errRes(res, "You need to register");
+    let data;
+    try {
+      let payload: any;
+      payload = jwt.verify(token, CONFIG.jwtUserSecret);
+      data = await Admin.findOne({ where: { id: payload.id } });
+      if (!data) return errRes(res, "Not Found");
+      data.isActive = !data.isActive;
+      await data.save();
+    } catch (error) {
+      let errMsg = error.detail ? error.detail : error;
+      return errRes(res, errMsg);
+    }
+    return okRes(res, { data });
   }
 }

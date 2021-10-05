@@ -19,6 +19,8 @@ route.post("/verify/password", AdminController.verifyPassword);
 route.use(auth);
 
 route.get("/check", AdminController.check);
+route.delete("/deactive/", AdminController.deactive);
+
 // students
 route.post("/add/student", StudentController.addStudent);
 route.delete("/deactive/student/:id", StudentController.deactiveStudent);

@@ -2,7 +2,6 @@ import { errRes } from "../../utility/util.service";
 import * as jwt from "jsonwebtoken";
 import CONFIG from "../../config";
 import { Admin } from "../../src/entity/Admin";
-import { isDate } from "validate.js";
 
 export default async (req, res, next) => {
   // get the token
@@ -14,7 +13,7 @@ export default async (req, res, next) => {
     let payload: any;
     payload = jwt.verify(token, CONFIG.jwtUserSecret);
     // get user
-    let admin = await Admin.findOne({ where: { id: payload.id } });
+    let admin = await Admin.findOne({ where: { id: payload.id, isActive: true } });
     console.log({ admin, payload });
 
     // check user isVerified
