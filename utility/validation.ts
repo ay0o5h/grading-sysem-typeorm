@@ -156,4 +156,14 @@ export default class Validate {
       type: "number",
     },
   });
+  static enrollCourse = (must = true) => ({
+    users: {
+      presence: must,
+      type: "number",
+    },
+    courses: {
+      presence: must,
+      type: "number",
+    },
+  })
 }

@@ -21,6 +21,8 @@ route.use(auth);
 route.get("/check", AdminController.check);
 // students
 route.post("/add/student", StudentController.addStudent);
+route.delete("/deactive/student/:id", StudentController.deactiveStudent);
+
 // courses
 route.get("/course", CourseController.getAll);
 route.get("/course/:id", CourseController.getOne);

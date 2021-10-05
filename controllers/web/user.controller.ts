@@ -32,8 +32,8 @@ export default class UserController {
     let email = body.email;
     let password = body.password;
     // get user from db by phone + isVerified
-    let user = await User.findOne({ where: { email } });
-    if (!user) return errRes(res, `the email ${email} is not exist`);
+    let user = await User.findOne({ where: { email, isActive: true } });
+    if (!user) return errRes(res, `the email ${email} is not exist or the account is deactive by the admin`);
 
     // compaire the password
     let check = await bcrypt.compare(password, user.password);

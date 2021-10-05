@@ -16,51 +16,45 @@ export default class StudentController {
   static async addStudent(req: Request, res: Response): Promise<object> {
     // get the body
     const body = req.body;
-    // get the token
-    // let token 
-    // token= req.headers.token;
-    // let phone;
-    // // get the user from db using id
-    // try {
-    //   let payload;
-    //   payload = jwt.verify(token, CONFIG.jwtPasswordSecret);
-    //   phone = payload.phone;
-    // } catch (error) {
-    //   return errRes(res, "Invalid token");
-    // }
     // validate the req
     let notValid = validate(body, Validator.addStudent());
     if (notValid) return errRes(res, notValid);
-
     // hash the password
     let salt = await bcrypt.genSalt(12);
     let password = await bcrypt.hash(body.password, salt);
- 
     body.password = password;
-
     let email = body.email;
     // check if the user already exists
     let user;
     user = await User.findOne({ where: { email } });
     // if exists but not verified
-    if (user)  return errRes(res, `student ${email} is already exist`);
-
+    if (user) return errRes(res, `student ${email} is already exist`);
     user = await User.create({
-        firstName: body.firstName,
-        lastName: body.lastName,
-        email: body.email,
-        password: body.password,
-    
-      });
-    
-
+      firstName: body.firstName,
+      lastName: body.lastName,
+      email: body.email,
+      password: body.password,
+    });
     // save the user
     await user.save();
-
-
-  let   token = jwt.sign({ id: user.id }, CONFIG.jwtUserSecret);
-
+    let token = jwt.sign({ id: user.id }, CONFIG.jwtUserSecret);
     // return res
-    return okRes(res, { user,token });
+    return okRes(res, { user, token });
   }
+  static async deactiveStudent(req: Request, res: Response): Promise<object> {
+    const id = req.params.id;
+    let data;
+    try {
+      data = await User.findOne(id);
+      if (!data) return errRes(res, "Not Found");
+      data.isActive = !data.isActive;
+      await data.save();
+    } catch (error) {
+      let errMsg = error.detail ? error.detail : error;
+      return errRes(res, errMsg);
+    }
+    return okRes(res, { data });
+  }
+
+
 }
