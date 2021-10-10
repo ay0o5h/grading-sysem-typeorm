@@ -13,6 +13,7 @@ export default class StudentController {
    * @param res
    * @returns
    */
+
   static async addStudent(req: Request, res: Response): Promise<object> {
     // get the body
     const body = req.body;
@@ -55,6 +56,9 @@ export default class StudentController {
     }
     return okRes(res, { data });
   }
-
-
+  static async getStudents(req: Request, res: Response): Promise<object> {
+    let id = req.params.id;
+    let data = await User.find({ where: { isActive: true, course: id } });
+    return okRes(res, { data });
+  }
 }
