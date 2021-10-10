@@ -18,6 +18,7 @@ export default async (req, res, next) => {
 
     // check user isVerified
     if (!admin.isVerfied) return errRes(res, `Please verify your account`);
+    if (!admin.isActive) return errRes(res, `the account is not active`);
     req.admin = admin;
     // next
     return next();
