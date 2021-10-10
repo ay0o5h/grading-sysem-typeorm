@@ -1,0 +1,6 @@
+light   dark
+#0000fe #311ed2 => blue
+#a02580		=> purple
+#1cb45b #1AA855 => green
+
+#b40302	#A60302	=> red

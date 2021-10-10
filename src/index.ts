@@ -7,12 +7,30 @@ import dashv1 from "../routes/dash/v1";
 import notFound from "../middlewares/web/notFound";
 const multer = require('multer');
 const port = process.env.PORT || 3000;
-const imageUpload = multer({
-  dest: 'images',
-});
+// const imageUpload = multer({
+//   dest: 'images',
+// });
+// const fileUpload = multer({
+//   dest: 'files',
+// });
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/")
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  },
+})
+
+const uploadStorage = multer({ storage: storage })
 createConnection()
   .then(async (connection) => {
     app.use(express.json());
+    app.post("/upload/", uploadStorage.single("file"), (req: any, res) => {
+      console.log(req.file)
+      return res.send("Single file")
+    })
     //   app.post('/image', imageUpload.single('image'), (req: any, res) => {
     //     console.log(req.file);
     //     res.json('/image api');

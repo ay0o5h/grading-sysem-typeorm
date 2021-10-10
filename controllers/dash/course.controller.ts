@@ -4,6 +4,8 @@ import Validator from "../../utility/validation";
 import { errRes, okRes } from "../../utility/util.service";
 import { Course } from "../../src/entity/Course";
 import { Test } from "../../src/entity/Test";
+import { Lectures } from "../../src/entity/Lectures";
+const multer = require('multer');
 export default class CourseController {
   /**
    *
@@ -97,5 +99,24 @@ export default class CourseController {
       return errRes(res, errMsg);
     }
     return okRes(res, { data });
+  }
+  static async uploade(req: any, res): Promise<object> {
+    const id = req.params.id;
+    const body = req.body;
+    let data = await Course.findOne(id);
+    const storage = multer.diskStorage({
+      destination: (req, file, cb) => {
+        cb(null, "uploads/")
+      },
+      filename: (req, file, cb) => {
+        cb(null, Date.now() + "-" + file.originalname)
+      },
+    })
+    let lect = await Lectures.create({
+      name: body.name,
+      link: req.file.filename,
+      course: body.course,
+    });
+    return okRes(res, { lect });
   }
 }
