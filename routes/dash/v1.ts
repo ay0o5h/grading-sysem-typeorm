@@ -31,6 +31,8 @@ route.get("/course/:id", CourseController.getOne);
 route.post("/add/course", CourseController.add);
 route.put("/edit/course/:id", CourseController.edit);
 route.delete("/delete/course/:id", CourseController.delete);
+route.delete("/delete/lecture/:id", CourseController.deleteLect);
+
 // const storage = multer.diskStorage({
 //     destination: (req, file, cb) => {
 //       cb(null, "uploads/")

@@ -119,4 +119,12 @@ export default class CourseController {
     });
     return okRes(res, { lect });
   }
+  static async deleteLect(req: any, res): Promise<object> {
+    const id = req.params.id;
+    const body = req.body;
+    // let data = await Lectures.findOne(id);
+    await Lectures.delete(id)
+
+    return okRes(res, "the lecture have been deleted");
+  }
 }
