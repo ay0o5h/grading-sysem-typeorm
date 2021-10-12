@@ -53,6 +53,16 @@ route.post("/upload/:id", uploadStorage.single("file"), async (req: any, res) =>
     console.log(req.file)
     return okRes(res, { letc })
 })
+route.put("/upload/:id", uploadStorage.single("file"), async (req: any, res) => {
+    const id = req.params.id;
+    let lec = await Lectures.findOne(id)
+    lec.name = req.file.filename;
+    lec.link = req.file.path
+    await lec.save()
+    console.log(req.file)
+    return okRes(res, { lec })
+})
+
 route.delete("/delete/lecture/:id", CourseController.deleteLect);
 // tests
 route.get("/test/:id", TestController.getOne);
