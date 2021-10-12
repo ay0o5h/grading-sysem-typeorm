@@ -54,7 +54,7 @@ route.delete("/deactive/", AdminController.deactive);
 route.post('/image/:id', imageUpload.single('image'), async (req: any, res) => {
     const id = req.params.id;
     let admin = await Admin.findOne(id)
-    admin.image = req.file.originalname
+    admin.image = req.file.path
     await admin.save()
     console.log(req.file)
     return okRes(res, { admin })

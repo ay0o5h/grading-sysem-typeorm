@@ -42,7 +42,7 @@ route.use(auth);
 route.post('/image/:id', imageUpload.single('image'), async (req: any, res) => {
     const id = req.params.id;
     let user = await User.findOne(id)
-    user.image = req.file.originalname
+    user.image = req.file.path
     await user.save()
     console.log(req.file)
     return okRes(res, { user })

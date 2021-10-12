@@ -19,7 +19,7 @@ export class Admin extends BaseEntity {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
   image: string;
   @Column({ nullable: true })
   otp: number;

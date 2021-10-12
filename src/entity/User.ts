@@ -28,9 +28,10 @@ export class User extends BaseEntity {
   email: string;
   @Column()
   password: string;
-  @Column({ default: true })
-  @Column()
+
+  @Column({ nullable: true })
   image: string;
+  @Column({ default: true })
   isActive: boolean;
   @CreateDateColumn()
   createdAt: Date;
