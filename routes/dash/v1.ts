@@ -6,7 +6,8 @@ import TestController from '../../controllers/dash/test.controller';
 import otp from "../../middlewares/dash/otp";
 import auth from "../../middlewares/dash/auth";
 import { Lectures } from "../../src/entity/Lectures";
-import { okRes } from "../../utility/util.service";
+import { okRes, errRes } from "../../utility/util.service";
+import { Admin } from "../../src/entity/Admin";
 const multer = require('multer');
 const route = express.Router();
 const storage = multer.diskStorage({
@@ -14,10 +15,30 @@ const storage = multer.diskStorage({
         cb(null, "uploads/")
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + "-" + file.originalname)
+        cb(null, file.originalname)
     },
 })
 const uploadStorage = multer({ storage: storage })
+const imageStorage = multer.diskStorage({
+    // Destination to store image     
+    destination: 'images/admins',
+    filename: (req, file, cb) => {
+        cb(null, file.originalname)
+    }
+});
+const imageUpload = multer({
+    storage: imageStorage,
+    limits: {
+        fileSize: 2000000 // 1000000 Bytes = 1 MB
+    },
+    fileFilter(req, file, cb) {
+        if (!file.originalname.match(/\.(png|jpg)$/)) {
+            // upload only png and jpg format
+            return cb(new Error('Please upload a Image'))
+        }
+        cb(undefined, true)
+    }
+})
 /// Not Auth && register
 route.post("/register", AdminController.register);
 route.post("/otp", otp, AdminController.checkOtp);
@@ -30,7 +51,16 @@ route.use(auth);
 
 route.get("/check", AdminController.check);
 route.delete("/deactive/", AdminController.deactive);
-
+route.post('/image/:id', imageUpload.single('image'), async (req: any, res) => {
+    const id = req.params.id;
+    let admin = await Admin.findOne(id)
+    admin.image = req.file.originalname
+    await admin.save()
+    console.log(req.file)
+    return okRes(res, { admin })
+}, (error, req, res, next) => {
+    return errRes(res, { error: error.message })
+});
 // students
 route.post("/add/student", StudentController.addStudent);
 route.delete("/deactive/student/:id", StudentController.deactiveStudent);
@@ -73,7 +103,7 @@ route.delete("/delete/test/:id", TestController.delete);
 // questions
 route.post("/add/questions", TestController.addQuestion);
 route.put("/edit/questions/:id", TestController.editQuestion);
-// route.post("/lecture/uploade", CourseController.uploade);
+
 
 
 export default route;

@@ -24,11 +24,13 @@ export class User extends BaseEntity {
   @Column()
   lastName: string;
 
-  @Column({ unique: true})
+  @Column({ unique: true })
   email: string;
   @Column()
   password: string;
   @Column({ default: true })
+  @Column()
+  image: string;
   isActive: boolean;
   @CreateDateColumn()
   createdAt: Date;
