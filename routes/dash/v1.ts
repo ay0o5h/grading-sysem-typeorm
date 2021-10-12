@@ -5,9 +5,19 @@ import CourseController from '../../controllers/dash/course.controller';
 import TestController from '../../controllers/dash/test.controller';
 import otp from "../../middlewares/dash/otp";
 import auth from "../../middlewares/dash/auth";
+import { Lectures } from "../../src/entity/Lectures";
+import { okRes } from "../../utility/util.service";
 const multer = require('multer');
 const route = express.Router();
-
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads/")
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + "-" + file.originalname)
+    },
+})
+const uploadStorage = multer({ storage: storage })
 /// Not Auth && register
 route.post("/register", AdminController.register);
 route.post("/otp", otp, AdminController.checkOtp);
@@ -31,20 +41,19 @@ route.get("/course/:id", CourseController.getOne);
 route.post("/add/course", CourseController.add);
 route.put("/edit/course/:id", CourseController.edit);
 route.delete("/delete/course/:id", CourseController.delete);
+route.get("/course/lectures/:id", CourseController.getLecture);
+route.post("/upload/:id", uploadStorage.single("file"), async (req: any, res) => {
+    const id = req.params.id;
+    let letc = Lectures.create({
+        name: req.file.filename,
+        link: req.file.path,
+        course: id
+    })
+    await letc.save()
+    console.log(req.file)
+    return okRes(res, { letc })
+})
 route.delete("/delete/lecture/:id", CourseController.deleteLect);
-
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//       cb(null, "uploads/")
-//     },
-//     filename: (req, file, cb) => {
-//       cb(null, Date.now() + "-" + file.originalname)
-//     },
-//   })
-//   route.post("/upload/", uploadStorage.single("file"), (req: any, res) => {
-//     console.log(req.file)
-//     return res.send("Single file")
-//   })
 // tests
 route.get("/test/:id", TestController.getOne);
 route.get("/:id/test", TestController.getAll);

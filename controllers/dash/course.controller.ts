@@ -25,6 +25,7 @@ export default class CourseController {
         alias: "course",
         leftJoinAndSelect: {
           tests: "course.tests",
+          lectures: "course.lectures"
         },
       },
     });
@@ -100,23 +101,12 @@ export default class CourseController {
     }
     return okRes(res, { data });
   }
-  static async uploade(req: any, res): Promise<object> {
+  static async getLecture(req, res): Promise<object> {
     const id = req.params.id;
-    const body = req.body;
-    let data = await Course.findOne(id);
-    const storage = multer.diskStorage({
-      destination: (req, file, cb) => {
-        cb(null, "uploads/")
-      },
-      filename: (req, file, cb) => {
-        cb(null, Date.now() + "-" + file.originalname)
-      },
-    })
-    let lect = await Lectures.create({
-      name: body.name,
-      link: req.file.filename,
-      course: body.course,
-    });
+    const lect = await Lectures.find({ where: { course: id } });
+    // let data = await Lectures.findOne(id);
+
+
     return okRes(res, { lect });
   }
   static async deleteLect(req: any, res): Promise<object> {

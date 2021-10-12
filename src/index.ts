@@ -5,9 +5,7 @@ const app = express();
 import webv1 from "../routes/web/v1";
 import dashv1 from "../routes/dash/v1";
 import notFound from "../middlewares/web/notFound";
-import { Lectures } from "./entity/Lectures";
 const multer = require('multer');
-import auth from "../middlewares/dash/auth"
 const port = process.env.PORT || 3000;
 // const imageUpload = multer({
 //   dest: 'images',
@@ -16,31 +14,10 @@ const port = process.env.PORT || 3000;
 //   dest: 'files',
 // });
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/")
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname)
-  },
-})
 
-const uploadStorage = multer({ storage: storage })
 createConnection()
   .then(async (connection) => {
     app.use(express.json());
-    app.post("/dash/v1/upload/:id", auth, uploadStorage.single("file"), async (req: any, res) => {
-      const id = req.params.id;
-      console.log(req.file)
-      let body = req.body;
-      let letc = Lectures.create({
-        name: req.file.filename,
-        link: req.file.path,
-        course: id
-      })
-      await letc.save()
-      return res.send("Single file")
-    })
     //   app.post('/image', imageUpload.single('image'), (req: any, res) => {
     //     console.log(req.file);
     //     res.json('/image api');
