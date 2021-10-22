@@ -104,6 +104,4 @@ route.delete("/delete/test/:id", TestController.delete);
 route.post("/add/questions", TestController.addQuestion);
 route.put("/edit/questions/:id", TestController.editQuestion);
 
-
-
 export default route;
