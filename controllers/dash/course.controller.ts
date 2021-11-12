@@ -14,7 +14,8 @@ export default class CourseController {
    * @returns
    */
   static async getAll(req: Request, res: Response): Promise<object> {
-    const courses = await Course.find({ where: { active: true } });
+    const id = req.params.id;
+    const courses = await Course.find({ where: { active: true, admin: id } });
     return okRes(res, { courses })
   }
   static async getOne(req: Request, res: Response): Promise<object> {

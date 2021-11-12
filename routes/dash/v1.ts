@@ -66,7 +66,7 @@ route.post("/add/student", StudentController.addStudent);
 route.delete("/deactive/student/:id", StudentController.deactiveStudent);
 
 // courses
-route.get("/course", CourseController.getAll);
+route.get("/courses/:id", CourseController.getAll);
 route.get("/course/:id", CourseController.getOne);
 route.post("/add/course", CourseController.add);
 route.put("/edit/course/:id", CourseController.edit);
