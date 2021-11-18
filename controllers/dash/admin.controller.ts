@@ -1,13 +1,16 @@
-import { Request, Response } from "express";
-import { Admin } from "../../src/entity/Admin";
-import * as validate from "validate.js";
-import Validator from "../../utility/validation";
-import { errRes, getOtp, okRes } from "../../utility/util.service";
-import PhoneFormat from "../../utility/phoneFormat.service";
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
+import * as validate from "validate.js";
+
+import { Request, Response } from "express";
+import { errRes, getOtp, okRes } from "../../utility/util.service";
+
+import { Admin } from "../../src/entity/Admin";
 import CONFIG from "../../config";
+import PhoneFormat from "../../utility/phoneFormat.service";
 import { Twilio } from "twilio";
+import Validator from "../../utility/validation";
+
 export default class AdminController {
   /**
    *

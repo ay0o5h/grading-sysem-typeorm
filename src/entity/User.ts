@@ -1,14 +1,15 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
+  BaseEntity,
   Column,
   CreateDateColumn,
-  UpdateDateColumn,
-  BaseEntity,
-  OneToMany,
+  Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from "typeorm";
+
 import { Course } from "./Course";
 import { StudentAnswer } from "./StudentAnswer";
 import { TestResult } from "./TestResult";

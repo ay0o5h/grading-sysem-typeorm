@@ -1,7 +1,8 @@
-import { errRes } from "../../utility/util.service";
 import * as jwt from "jsonwebtoken";
-import CONFIG from "../../config";
+
 import { Admin } from "../../src/entity/Admin";
+import CONFIG from "../../config";
+import { errRes } from "../../utility/util.service";
 
 export default async (req, res, next) => {
   // get the token

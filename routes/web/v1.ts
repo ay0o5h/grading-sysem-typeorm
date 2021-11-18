@@ -1,8 +1,11 @@
 import * as express from "express";
+
+import { errRes, okRes } from "../../utility/util.service";
+
+import { User } from "../../src/entity/User";
 import UserController from '../../controllers/web/user.controller';
 import auth from '../../middlewares/web/auth'
-import { User } from "../../src/entity/User";
-import { okRes, errRes } from "../../utility/util.service";
+
 const multer = require('multer');
 // import auth from "../../middlewares/web/auth";
 

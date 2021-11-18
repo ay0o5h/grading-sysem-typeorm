@@ -1,11 +1,17 @@
 import "reflect-metadata";
-import { createConnection } from "typeorm";
-import * as express from "express";
+
 import * as cors from "cors";
-const app = express();
-import webv1 from "../routes/web/v1";
+import * as express from "express";
+
+import { createConnection } from "typeorm";
 import dashv1 from "../routes/dash/v1";
 import notFound from "../middlewares/web/notFound";
+import webv1 from "../routes/web/v1";
+
+const app = express();
+
+
+
 
 const port = process.env.PORT || 5000;
 

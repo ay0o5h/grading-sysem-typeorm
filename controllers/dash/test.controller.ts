@@ -1,9 +1,12 @@
-import { Request, Response } from "express";
 import * as validate from "validate.js";
-import Validator from "../../utility/validation";
+
+import { Request, Response } from "express";
 import { errRes, okRes } from "../../utility/util.service";
+
 import { Test } from "../../src/entity/Test";
 import { TestQuestion } from "../../src/entity/TestQuestion";
+import Validator from "../../utility/validation";
+
 export default class TestController {
     static async getAll(req: Request, res: Response): Promise<object> {
         const id = req.params.id;

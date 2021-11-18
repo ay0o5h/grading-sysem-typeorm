@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, BaseEntity, ManyToMany, ManyToOne, OneToMany } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+
 import { Admin } from "./Admin";
 import { Lectures } from "./Lectures";
 import { Test } from "./Test";
-
 import { User } from "./User";
 
 @Entity()

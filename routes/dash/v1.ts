@@ -1,13 +1,16 @@
 import * as express from "express";
-import AdminController from '../../controllers/dash/admin.controller';
-import StudentController from '../../controllers/dash/student.controller';
-import CourseController from '../../controllers/dash/course.controller';
-import TestController from '../../controllers/dash/test.controller';
-import otp from "../../middlewares/dash/otp";
-import auth from "../../middlewares/dash/auth";
-import { Lectures } from "../../src/entity/Lectures";
-import { okRes, errRes } from "../../utility/util.service";
+
+import { errRes, okRes } from "../../utility/util.service";
+
 import { Admin } from "../../src/entity/Admin";
+import AdminController from '../../controllers/dash/admin.controller';
+import CourseController from '../../controllers/dash/course.controller';
+import { Lectures } from "../../src/entity/Lectures";
+import StudentController from '../../controllers/dash/student.controller';
+import TestController from '../../controllers/dash/test.controller';
+import auth from "../../middlewares/dash/auth";
+import otp from "../../middlewares/dash/otp";
+
 const multer = require('multer');
 const route = express.Router();
 const storage = multer.diskStorage({

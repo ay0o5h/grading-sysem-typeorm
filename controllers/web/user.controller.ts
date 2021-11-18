@@ -1,12 +1,12 @@
-import { Request, Response } from "express";
-import { User } from "../../src/entity/User";
-import * as validate from "validate.js";
-import Validator from "../../utility/validation";
-import { errRes, getOtp, okRes } from "../../utility/util.service";
-import PhoneFormat from "../../utility/phoneFormat.service";
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
+import * as validate from "validate.js";
+
+import { errRes, okRes } from "../../utility/util.service";
+
 import CONFIG from '../../config';
+import { User } from "../../src/entity/User";
+import Validator from "../../utility/validation";
 
 export default class UserController {
   /**
