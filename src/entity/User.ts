@@ -7,12 +7,12 @@ import {
   ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  UpdateDateColumn
 } from "typeorm";
-
 import { Course } from "./Course";
 import { StudentAnswer } from "./StudentAnswer";
 import { TestResult } from "./TestResult";
+
 
 @Entity()
 export class User extends BaseEntity {

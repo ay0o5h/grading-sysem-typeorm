@@ -1,12 +1,12 @@
-import "reflect-metadata";
-
 import * as cors from "cors";
 import * as express from "express";
-
+import "reflect-metadata";
 import { createConnection } from "typeorm";
-import dashv1 from "../routes/dash/v1";
 import notFound from "../middlewares/web/notFound";
+import dashv1 from "../routes/dash/v1";
 import webv1 from "../routes/web/v1";
+
+
 
 const app = express();
 

@@ -1,7 +1,7 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-
 import { Course } from "./Course";
 import { Test } from "./Test";
+
 
 @Entity()
 export class Admin extends BaseEntity {

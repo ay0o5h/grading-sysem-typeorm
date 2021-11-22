@@ -1,15 +1,15 @@
 import * as express from "express";
-
-import { errRes, okRes } from "../../utility/util.service";
-
-import { Admin } from "../../src/entity/Admin";
 import AdminController from '../../controllers/dash/admin.controller';
 import CourseController from '../../controllers/dash/course.controller';
-import { Lectures } from "../../src/entity/Lectures";
 import StudentController from '../../controllers/dash/student.controller';
 import TestController from '../../controllers/dash/test.controller';
 import auth from "../../middlewares/dash/auth";
 import otp from "../../middlewares/dash/otp";
+import { Admin } from "../../src/entity/Admin";
+import { Lectures } from "../../src/entity/Lectures";
+import { errRes, okRes } from "../../utility/util.service";
+
+
 
 const multer = require('multer');
 const route = express.Router();

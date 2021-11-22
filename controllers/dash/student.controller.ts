@@ -1,13 +1,13 @@
 import * as bcrypt from "bcrypt";
+import { Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
 import * as validate from "validate.js";
-
-import { Request, Response } from "express";
-import { errRes, okRes } from "../../utility/util.service";
-
 import CONFIG from "../../config";
 import { User } from "../../src/entity/User";
+import { errRes, okRes } from "../../utility/util.service";
 import Validator from "../../utility/validation";
+
+
 
 export default class StudentController {
   /**

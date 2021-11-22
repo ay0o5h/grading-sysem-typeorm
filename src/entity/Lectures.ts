@@ -1,6 +1,6 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-
 import { Course } from "./Course";
+
 
 @Entity()
 export class Lectures extends BaseEntity {

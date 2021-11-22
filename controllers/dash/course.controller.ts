@@ -1,12 +1,12 @@
-import * as validate from "validate.js";
-
 import { Request, Response } from "express";
-import { errRes, okRes } from "../../utility/util.service";
-
+import * as validate from "validate.js";
 import { Course } from "../../src/entity/Course";
 import { Lectures } from "../../src/entity/Lectures";
 import { Test } from "../../src/entity/Test";
+import { errRes, okRes } from "../../utility/util.service";
 import Validator from "../../utility/validation";
+
+
 
 const multer = require('multer');
 export default class CourseController {

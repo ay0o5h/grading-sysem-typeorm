@@ -1,15 +1,15 @@
 import * as bcrypt from "bcrypt";
-import * as jwt from "jsonwebtoken";
-import * as validate from "validate.js";
-
 import { Request, Response } from "express";
-import { errRes, getOtp, okRes } from "../../utility/util.service";
-
-import { Admin } from "../../src/entity/Admin";
-import CONFIG from "../../config";
-import PhoneFormat from "../../utility/phoneFormat.service";
+import * as jwt from "jsonwebtoken";
 import { Twilio } from "twilio";
+import * as validate from "validate.js";
+import CONFIG from "../../config";
+import { Admin } from "../../src/entity/Admin";
+import PhoneFormat from "../../utility/phoneFormat.service";
+import { errRes, getOtp, okRes } from "../../utility/util.service";
 import Validator from "../../utility/validation";
+
+
 
 export default class AdminController {
   /**

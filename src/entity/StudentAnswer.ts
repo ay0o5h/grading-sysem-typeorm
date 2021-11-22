@@ -1,8 +1,8 @@
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-
 import { Test } from "./Test";
 import { TestQuestion } from "./TestQuestion";
 import { User } from "./User";
+
 
 @Entity()
 export class StudentAnswer extends BaseEntity {
