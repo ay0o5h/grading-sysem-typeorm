@@ -1,9 +1,9 @@
 import * as express from "express";
+import CourseController from "../../controllers/web/course.controller";
 import UserController from '../../controllers/web/user.controller';
 import auth from '../../middlewares/web/auth';
 import { User } from "../../src/entity/User";
 import { errRes, okRes } from "../../utility/util.service";
-
 
 
 const multer = require('multer');
@@ -42,6 +42,8 @@ route.post("/login", UserController.login);
 
 //  Need Auth
 route.use(auth);
+route.post("/enroll-course", CourseController.enrollCourse);
+
 route.post('/image/:id', imageUpload.single('image'), async (req: any, res) => {
     const id = req.params.id;
     let user = await User.findOne(id)

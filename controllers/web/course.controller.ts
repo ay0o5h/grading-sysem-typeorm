@@ -1,7 +1,7 @@
-import * as validate from "validate.js";
-import { Course } from "../../src/entity/Course";
+import "reflect-metadata";
+import { User } from "../../src/entity/User";
 import { errRes, okRes } from "../../utility/util.service";
-import Validator from "../../utility/validation";
+import { Course } from './../../src/entity/Course';
 
 
 
@@ -17,20 +17,21 @@ export default class CourseController {
         // get body
         let body = req.body;
         // verify body
-        let notValid = validate(body, Validator.enrollCourse());
-        if (notValid) return errRes(res, notValid);
-        let name = body.name;
-        let course = await Course.findOne({ where: { name } });
-        if (!course) return errRes(res, `${name} is not exist`);
+        // let notValid = validate(body, Validator.enrollCourse());
+        // if (notValid) return errRes(res, notValid);
+        let id = body.courseId;
+        let course = await Course.findOne({ where: { id } });
+        if (!course) return errRes(res, `${id} is not exist`);
         // TODO: enroll Course
-        // test = await TestQuestion.create({
-        //     ...body
-        // });
+        const course1 = new Course();
+        course1.id = body.courseId;
+        course1.save();
+        const user = new User();
+        user.id = body.userId;
 
-        // await test.save();
-        // // return res
-        // return okRes(res, { test });
-        // return token
-        return okRes(res, { course });
+        user.courses = [course1];
+        await user.save();
+
+        return okRes(res, { user, course1 });
     }
 }

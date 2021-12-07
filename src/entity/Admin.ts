@@ -40,4 +40,5 @@ export class Admin extends BaseEntity {
   courses: Course[];
   @OneToMany((type) => Test, (test) => test.admin)
   tests: Test[];
+
 }

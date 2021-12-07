@@ -4,12 +4,12 @@ import {
   CreateDateColumn,
   Entity,
   JoinTable,
-  ManyToMany,
-  OneToMany,
+  ManyToMany, OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm";
 import { Course } from "./Course";
+import { CourseEnrollment } from "./CourseEnrollment";
 import { StudentAnswer } from "./StudentAnswer";
 import { TestResult } from "./TestResult";
 
@@ -42,11 +42,16 @@ export class User extends BaseEntity {
   //TODO: make Relations
   @OneToMany((type) => TestResult, (testResult) => testResult.user)
   testResults: TestResult[];
+
   @OneToMany((type) => StudentAnswer, (studentAnswer) => studentAnswer.user)
   studentAnswers: StudentAnswer[];
 
-  @ManyToMany(() => Course, course => course.users)
+  @ManyToMany((type) => Course, course => course.users, {
+    cascade: true,
+  })
   @JoinTable()
   courses: Course[];
+  @OneToMany((type) => CourseEnrollment, (courseEnrollment) => courseEnrollment.users)
+  courseEnrollment: CourseEnrollment;
 
 }
