@@ -43,6 +43,8 @@ route.post("/login", UserController.login);
 //  Need Auth
 route.use(auth);
 route.post("/enroll-course", CourseController.enrollCourse);
+route.post("/take-test/:id", CourseController.taketest);
+
 
 route.post('/image/:id', imageUpload.single('image'), async (req: any, res) => {
     const id = req.params.id;

@@ -157,13 +157,39 @@ export default class Validate {
     },
   });
   static enrollCourse = (must = true) => ({
-    users: {
+    userId: {
       presence: must,
       type: "number",
     },
-    courses: {
+    courseId: {
       presence: must,
       type: "number",
     },
   })
+
+  static taketest = (must = true) => ({
+    user: {
+      presence: must,
+      type: "number",
+    },
+    test: {
+      presence: must,
+      type: "number",
+    },
+    answers: {
+      type: "array",
+    }
+
+  })
+  static checkQuestion = (must = false) => ({
+    question: {
+      presence: must,
+      type: "number",
+    },
+    asnwer: {
+      presence: must,
+      type: "string",
+    },
+
+  });
 }
