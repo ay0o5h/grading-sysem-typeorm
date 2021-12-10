@@ -9,7 +9,6 @@ import {
   UpdateDateColumn
 } from "typeorm";
 import { Course } from "./Course";
-import { CourseEnrollment } from "./CourseEnrollment";
 import { StudentAnswer } from "./StudentAnswer";
 import { TestResult } from "./TestResult";
 
@@ -51,7 +50,5 @@ export class User extends BaseEntity {
   })
   @JoinTable()
   courses: Course[];
-  @OneToMany((type) => CourseEnrollment, (courseEnrollment) => courseEnrollment.users)
-  courseEnrollment: CourseEnrollment;
 
 }

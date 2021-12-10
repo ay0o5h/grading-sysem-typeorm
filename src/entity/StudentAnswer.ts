@@ -1,4 +1,4 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Test } from "./Test";
 import { TestQuestion } from "./TestQuestion";
 import { User } from "./User";
@@ -23,9 +23,11 @@ export class StudentAnswer extends BaseEntity {
   user: User;
   @ManyToOne((type) => Test, (test) => test.studentAnswers)
   test: Test;
-  @OneToOne(() => TestQuestion, {
-    cascade: true,
-  })
-  @JoinColumn()
+  @ManyToOne((type) => TestQuestion, (testQuestion) => testQuestion.studentAnswers)
   testQuestion: TestQuestion;
+  // @OneToOne(() => TestQuestion, {
+  //   cascade: true,
+  // })
+  // @JoinColumn()
+  // testQuestion: TestQuestion;
 }

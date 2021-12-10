@@ -1,4 +1,4 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { StudentAnswer } from "./StudentAnswer";
 import { Test } from "./Test";
 
@@ -33,9 +33,10 @@ export class TestQuestion extends BaseEntity {
     //TODO: make Relations
     @ManyToOne((type) => Test, (test) => test.testQuestions)
     test: Test;
-    @OneToOne((type) => StudentAnswer, (studentAnswer) => studentAnswer.testQuestion)
-    studentAnswers: StudentAnswer
-
+    // @OneToOne((type) => StudentAnswer, (studentAnswer) => studentAnswer.testQuestion)
+    // studentAnswers: StudentAnswer
+    @OneToMany((type) => StudentAnswer, (studentAnswer) => studentAnswer.testQuestion)
+    studentAnswers: StudentAnswer[];
 
 
 }
