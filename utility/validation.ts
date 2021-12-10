@@ -192,4 +192,15 @@ export default class Validate {
     },
 
   });
+  static result = (must = true) => ({
+    test: {
+      presence: must,
+      type: "number",
+    },
+    user: {
+      presence: must,
+      type: "string",
+    },
+
+  });
 }
