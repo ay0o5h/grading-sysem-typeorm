@@ -23,7 +23,9 @@ export class StudentAnswer extends BaseEntity {
   user: User;
   @ManyToOne((type) => Test, (test) => test.studentAnswers)
   test: Test;
-  @OneToOne(() => TestQuestion)
+  @OneToOne(() => TestQuestion, {
+    cascade: true,
+  })
   @JoinColumn()
   testQuestion: TestQuestion;
 }

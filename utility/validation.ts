@@ -157,10 +157,6 @@ export default class Validate {
     },
   });
   static enrollCourse = (must = true) => ({
-    userId: {
-      presence: must,
-      type: "number",
-    },
     courseId: {
       presence: must,
       type: "number",
@@ -168,14 +164,10 @@ export default class Validate {
   })
 
   static taketest = (must = true) => ({
-    user: {
-      presence: must,
-      type: "number",
-    },
-    test: {
-      presence: must,
-      type: "number",
-    },
+    // test: {
+    //   presence: must,
+    //   type: "number",
+    // },
     answers: {
       type: "array",
     }

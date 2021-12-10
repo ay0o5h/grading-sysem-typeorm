@@ -6,8 +6,6 @@ import { User } from "../../src/entity/User";
 import { errRes, okRes } from "../../utility/util.service";
 import Validator from "../../utility/validation";
 
-
-
 export default class UserController {
   /**
    *
@@ -22,28 +20,29 @@ export default class UserController {
    * @returns
    */
   static async login(req, res): Promise<object> {
-    // get body
+
     let body = req.body;
-    // verify body
     let notValid = validate(body, Validator.loginStudent());
     if (notValid) return errRes(res, notValid);
 
 
     let email = body.email;
     let password = body.password;
-    // get user from db by phone + isVerified
     let user = await User.findOne({ where: { email, isActive: true } });
     if (!user) return errRes(res, `the email ${email} is not exist or the account is deactive by the admin`);
 
-    // compaire the password
     let check = await bcrypt.compare(password, user.password);
     if (!check) return errRes(res, "Incorrect credentials");
 
-    // token
     let token = jwt.sign({ id: user.id }, CONFIG.jwtUserSecret);
 
-    // return token
     return okRes(res, { token, user });
+  }
+
+  static async getProfile(req, res): Promise<object> {
+    let user = await User.findOne({ where: { id: req.user.id, isActive: true } });
+    if (!user) return errRes(res, `the user is not exist or the account is deactive by the admin`);
+    return okRes(res, { user });
   }
 
 }

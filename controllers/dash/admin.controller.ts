@@ -163,8 +163,7 @@ export default class AdminController {
    * @returns
    */
   static async forget(req, res) {
-    // get the body
-    // validate
+
     let body = req.body;
 
     let notValid = validate(body, Validator.forget());
@@ -188,8 +187,6 @@ export default class AdminController {
 
     admin.otpNewPassword = otpNewPassword;
     await admin.save();
-
-    // send sms
 
     // create token
     let token = jwt.sign({ phone: admin.phone }, CONFIG.jwtPasswordSecret);
@@ -235,10 +232,6 @@ export default class AdminController {
 
     // save new password
     admin.password = password;
-
-    // return ok res
-    // let token = jwt.sign({ id: user.id }, CONFIG.jwtUserSecret);
-
     return okRes(res, { msg: "All good" });
   }
   static async deactive(req, res): Promise<object> {

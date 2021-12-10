@@ -19,7 +19,7 @@ export default async (req, res, next) => {
 
 
         if (!user.isActive) return errRes(res, `the account is not active`);
-        req.admin = user;
+        req.user = user;
         // next
         return next();
     } catch (error) {

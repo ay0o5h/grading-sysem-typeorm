@@ -49,12 +49,11 @@ export default class TestController {
         });
 
         await test.save();
-        // return res
+
         return okRes(res, { test });
     }
     static async edit(req: Request, res: Response): Promise<object> {
         const body = req.body;
-        // validate the req
         let notValid = validate(body, Validator.test(false));
         if (notValid) return errRes(res, notValid);
 

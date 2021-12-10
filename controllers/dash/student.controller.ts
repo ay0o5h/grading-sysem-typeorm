@@ -18,12 +18,11 @@ export default class StudentController {
    */
 
   static async addStudent(req: Request, res: Response): Promise<object> {
-    // get the body
+
     const body = req.body;
-    // validate the req
     let notValid = validate(body, Validator.addStudent());
     if (notValid) return errRes(res, notValid);
-    // hash the password
+
     let salt = await bcrypt.genSalt(12);
     let password = await bcrypt.hash(body.password, salt);
     body.password = password;
@@ -39,10 +38,9 @@ export default class StudentController {
       email: body.email,
       password: body.password,
     });
-    // save the user
     await user.save();
     let token = jwt.sign({ id: user.id }, CONFIG.jwtUserSecret);
-    // return res
+
     return okRes(res, { user, token });
   }
   static async deactiveStudent(req: Request, res: Response): Promise<object> {
