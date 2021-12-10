@@ -108,4 +108,19 @@ export default class CourseController {
         await data.save
         return okRes(res, { data });
     }
+    static async Review(req, res): Promise<object> {
+
+        const id = req.params.id;
+        const user = req.params.user;
+        let body = req.body;
+
+
+        let test = await Test.findOne({ where: { id } });
+        if (!test) return errRes(res, `${test} is not exist`);
+        let testQ = await TestQuestion.find({ where: { test: id } });
+        let studentAnswer = await StudentAnswer.find({ where: { test: id, user: user } });
+
+
+        return okRes(res, { data: { testQ, studentAnswer } });
+    }
 }
