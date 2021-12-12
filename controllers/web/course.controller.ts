@@ -108,4 +108,19 @@ export default class CourseController {
 
         return okRes(res, { data: { testQ, studentAnswer } });
     }
+    static async getEnrollCourses(req, res): Promise<object> {
+
+        const id = req.user.id;
+        let user = await User.find({
+
+            where: { id },
+            join: {
+                alias: "users",
+                leftJoinAndSelect: {
+                    courses: "users.courses",
+                },
+            }
+        })
+        return okRes(res, { data: { user } });
+    }
 }

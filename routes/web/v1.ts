@@ -47,6 +47,7 @@ route.post("/take-test/:id", CourseController.taketest);
 route.post("/result/:id", CourseController.CalucateResult)
 route.get("/review/:id", CourseController.Review)
 route.get("/profile", UserController.getProfile)
+route.get("/enrolled", CourseController.getEnrollCourses)
 route.post('/image/:id', imageUpload.single('image'), async (req: any, res) => {
     const id = req.params.id;
     let user = await User.findOne(id)
